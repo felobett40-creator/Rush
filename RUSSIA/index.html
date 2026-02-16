@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Russian Stranger</title>
+<style>
+    body {
+        margin: 0;
+        font-family: "Georgia", serif;
+        background: radial-gradient(circle at top, #111, #000);
+        color: #f2f2f2;
+        overflow: hidden;
+    }
+
+    .screen {
+        display: none;
+        height: 100vh;
+        width: 100vw;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        animation: fadeIn 1s ease;
+    }
+
+    .active {
+        display: flex;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px crimson;
+    }
+
+    p {
+        max-width: 700px;
+        line-height: 1.8;
+        font-size: 1.1em;
+    }
+
+    button {
+        background: linear-gradient(45deg, crimson, darkred);
+        border: none;
+        color: white;
+        padding: 12px 25px;
+        font-size: 1em;
+        margin: 10px;
+        cursor: pointer;
+        border-radius: 25px;
+        box-shadow: 0 0 15px rgba(255,0,0,0.5);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 25px rgba(255,0,0,0.9);
+    }
+
+    input {
+        padding: 10px;
+        font-size: 1em;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .error {
+        color: crimson;
+        margin-top: 10px;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .glow {
+        text-shadow: 0 0 15px crimson, 0 0 30px darkred;
+    }
+
+    .story-box {
+        max-width: 800px;
+        background: rgba(0,0,0,0.7);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 25px rgba(255,0,0,0.3);
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+
+    .music-note {
+        position: fixed;
+        bottom: 15px;
+        right: 20px;
+        font-size: 20px;
+        opacity: 0.7;
+    }
+</style>
+</head>
+<body>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="mystery.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SCREEN 1 -->
+<div class="screen active" id="screen1">
+    <h1 class="glow">The Russian Stranger</h1>
+    <p>There is a story whispered in the streets…  
+    A man from a far, cold land, walking through the warmth of Kenya.  
+    Are you interested in reading his story?</p>
+    <div>
+        <button onclick="goToLogin()">OK, Continue</button>
+        <button onclick="leave()">No, Leave</button>
+    </div>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="screen" id="screen2">
+    <h1>Enter Password</h1>
+    <input type="password" id="password" placeholder="Enter password">
+    <button onclick="checkPassword()">Unlock Story</button>
+    <div class="error" id="error"></div>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="screen" id="screen3">
+    <h1 class="glow">The Story</h1>
+    <div class="story-box">
+        <p>
+        He arrived quietly, with a strange accent and a tired smile.  
+        <br><br>
+        “I am from Russia,” he would say, lowering his voice, pretending not to know English well.  
+        Women listened, curious. His mystery felt like a puzzle they wanted to solve.
+        <br><br>
+        He walked through Nairobi nights like a shadow — charming, distant, and always moving.  
+        He never promised love, never asked for forever… only a moment.
+        <br><br>
+        Some believed he was lonely.  
+        Others thought he was running from something.  
+        But everyone remembered him.
+        <br><br>
+        And when morning came, he was already gone —  
+        leaving behind only stories, whispers, and questions.
+        </p>
+    </div>
+    <div class="music-note">🎵 Music Playing</div>
+</div>
+
+<script>
+const correctPassword = "russia2026";
+const music = document.getElementById("bgMusic");
+
+function goToLogin() {
+    document.getElementById("screen1").classList.remove("active");
+    document.getElementById("screen2").classList.add("active");
+    music.play();
+}
+
+function leave() {
+    alert("Maybe another time...");
+    window.close();
+}
+
+function checkPassword() {
+    const pass = document.getElementById("password").value;
+    if (pass === correctPassword) {
+        document.getElementById("screen2").classList.remove("active");
+        document.getElementById("screen3").classList.add("active");
+    } else {
+        document.getElementById("error").innerText = "Wrong password.";
+    }
+}
+</script>
+
+</body>
+</html>
